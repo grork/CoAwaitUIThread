@@ -21,12 +21,12 @@ You need to `co_await` onto the UI thread? (Or, any specific thread). To do that
         }
     }
 
-You can see simple usage of this in the app that is included here. Take a look, click both buttons, and hopefully that will help clearify whats going on.
+You can see simple usage of this in the app that is included here. Take a look, click both buttons, and hopefully that will help clarify whats going on.
 
 #### Background
 Normally, when working with the PPL, one would provide a [continuation context](https://msdn.microsoft.com/en-us/library/hh749968.aspx) to the continuation specifying where that block would complete.
 
-When working with `co_routines` & `co_await`, the implementation of the PPL to `co_await` adapter defined in `pplawait.h`, will provide you behaviour similar to `use_default`. e.g. if you start on the UI thread, it'll end on the UI thread. Great! But what if you need to ensure tha while your thread is initiated from any thread, you need it to get back to the UI thread? Turns out that is a pain in the rear.
+When working with `co_routines` & `co_await`, the implementation of the PPL to `co_await` adapter defined in `pplawait.h`, will provide you behaviour similar to `use_default`. e.g. if you start on the UI thread, it'll end on the UI thread. Great! But what if you need to ensure that while your work is initiated from any thread, you need it to get back to the UI thread? Turns out that is a pain in the rear.
 
 Example 1:
 
@@ -62,9 +62,9 @@ Example 3:
     }
 
 ##### co_await, co_routines
-At the time of writing, I don't think I could claim to be an expert in the wonders of `co_await` & friends. What I *do* know is that writing code using `co_await` is significantly cleaner & easier to read than the PPL & it's promise-like syntax.
+At the time of writing, I don’t think I could claim to be an expert in the wonders of `co_await` & friends. What I _do_ know is that writing code using `co_await` is significantly cleaner & easier to read than the PPL & it’s promise-like syntax. Because of that I was using co_await in my code, and struggling understand where & how the “continuation” of the co_routines were going to execute.
 
-Because of that I was writing some code, and I was trying to understand where & how the "continuation" of the co_routines were going to execute. After some diving, and consultation on [twitter](https://twitter.com/kennykerr/status/821086254443872256), I think I understand enough to leverage some code from [C++/WinRT](https://github.com/microsoft/cppwinrt), to allow me to creat the helper here.
+After some diving, and consultation on [twitter](https://twitter.com/kennykerr/status/821086254443872256), I think I understand enough to leverage some code from [C++/WinRT](https://github.com/microsoft/cppwinrt), to allow me to create the helper here.
 
 #### Resources
 
@@ -78,7 +78,7 @@ Reading these blog posts:
 [C++/WinRT: Fun With Agility](https://kennykerr.ca/2016/11/11/cppwinrt-fun-with-agility/)
 [coroutines in Visual Studio 2015 Update 1](https://blogs.msdn.microsoft.com/vcblog/2015/11/30/coroutines-in-visual-studio-2015-update-1/)
 
-If you're feeling particularily inclined to go _deep_:
+If you're feeling particularly inclined to go _deep_:
 
 [Wording for Coroutines (Or, the actual spec)](http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2016/p0057r7.pdf)
 
